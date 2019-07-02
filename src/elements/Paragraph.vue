@@ -1,6 +1,6 @@
 <template>
-  <component :is="type" :class="['paragraph', variation]">
-    <slot/>
+  <component :is="type" :class="['paragraph', variation]" :style="{ color: activeColor }">
+    <slot />
   </component>
 </template>
 
@@ -21,6 +21,10 @@ export default {
         return value.match(/(p|span)/)
       },
     },
+    activeColor: {
+      type: String,
+      default: "black",
+    },
     /**
      * Style variation to give additional meaning.
      * `intro, small, medium, large`
@@ -40,6 +44,8 @@ export default {
 .paragraph {
   @include reset;
   @include stack-space($space-m);
+  position: relative;
+  z-index: 999;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: color 0.3s ease;

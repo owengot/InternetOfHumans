@@ -1,6 +1,12 @@
 <template>
-  <component :is="type" :href="href" :type="submit" :class="['button', size, state, variation]">
-    <slot/>
+  <component
+    :is="type"
+    :href="href"
+    :type="submit"
+    :class="['button', size, state, variation]"
+    :style="{ boxShadow: 'inset 0 0 0 2px ' + fill, color: fill }"
+  >
+    <slot />
   </component>
 </template>
 
@@ -15,10 +21,6 @@ export default {
   status: "prototype",
   release: "3.5.0",
   props: {
-    /**
-     * The html element used for the button.
-     * `button, a`
-     */
     type: {
       type: String,
       default: "button",
@@ -26,10 +28,6 @@ export default {
         return value.match(/(button|a)/)
       },
     },
-    /**
-     * The size of the button. Defaults to medium.
-     * `small, medium, large`
-     */
     size: {
       type: String,
       default: "medium",
@@ -37,16 +35,10 @@ export default {
         return value.match(/(small|medium|large)/)
       },
     },
-    /**
-     * When setting the button’s type to a link, use this option to give a href.
-     */
     href: {
       type: String,
       default: null,
     },
-    /**
-     * Set the button’s type to “submit”.
-     */
     submit: {
       type: String,
       default: null,
@@ -54,10 +46,6 @@ export default {
         return value.match(/(null|submit)/)
       },
     },
-    /**
-     * Manually trigger various states of the button.
-     * `hover, active, focus`
-     */
     state: {
       type: String,
       default: null,
@@ -65,16 +53,13 @@ export default {
         return value.match(/(hover|active|focus)/)
       },
     },
-    /**
-     * Style variation to give additional meaning.
-     * `primary, secondary`
-     */
+    fill: {
+      type: String,
+      default: "black",
+    },
     variation: {
       type: String,
       default: null,
-      validator: value => {
-        return value.match(/(primary|secondary)/)
-      },
     },
   },
 }
@@ -98,33 +83,20 @@ export default {
   align-items: center;
   justify-content: center;
   border: 0;
-  box-shadow: inset 0 0 0 2px $color-bleu-de-france;
   border-radius: $radius-default;
   background: transparent;
-  color: $color-bleu-de-france;
   cursor: pointer;
   &:hover,
   &.hover {
-    color: $color-white;
-    background: $color-bleu-de-france;
     transform: translateZ(0) scale(1.03);
   }
   &:active,
   &.active {
-    transition: none;
-    background: $color-bleu-de-france-dark;
-    box-shadow: none;
-    color: $color-white;
     transform: translateZ(0) scale(1);
   }
 
   &:focus,
   &.focus {
-    background: $color-bleu-de-france-darker;
-    box-shadow: none;
-    color: $color-white;
-    transform: translateZ(0) scale(1);
-    outline: 0;
   }
 
   // For icons inside buttons
@@ -146,6 +118,30 @@ export default {
   &.small {
     @include inset-squish-space($space-xs);
     font-size: $size-s;
+  }
+
+  // Burning topics button
+  &.burning {
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='-269 131 100 125'%3E%3Cpath fill='%23fff' d='M-200.1 163.7l-1-.8c-1.2-1-3.1-.6-3.8.8-.3.7-.6 7.7-.6 8.9v.7c0 1-.9 1.8-1.9 1.6-.8-.1-1.4-.9-1.4-1.7-.1-12-3.7-20.4-10.5-26.7-4.1-3.8-9-7.2-10.5-4.6-.4.7.2 2.2.9 4.1 1.4 4.3-2.9 11.2-9 18.1-5.7 6.5-12.8 14.5-12.8 26.4 0 16 15.1 30.5 31.7 30.5s31.7-14.5 31.7-30.5c0-10.1-4.8-20.1-12.8-26.8zm-18.9 51.5a13.1 13.1 0 0 1-9.3-22.3l7.2-8.6a2.9 2.9 0 0 1 4.3 0l7.2 8.6c2.3 2.4 3.8 5.6 3.8 9.2-.1 7.2-6 13.1-13.2 13.1z'/%3E%3C/svg%3E")
+      no-repeat 6px 7px $color-bleu-de-france;
+    background-size: 18.6%;
+    padding-left: 8%;
+    color: white;
+  }
+
+  &.edgeryders {
+    background: url("data:image/svg+xml,%3Csvg style='fill: blue' viewBox='0 0 500 500' version='1' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 250a250 250 0 1 1 500 0 250 250 0 0 1-500 0zm250 183V250H67a183 183 0 1 1 183 183z' fill='' fill-rule='evenodd'%3E%3C/path%3E%3C/svg%3E")
+      no-repeat 8px 7px;
+    background-size: 1.7em;
+    padding-left: 2.7em;
+    color: white;
+  }
+
+  &.arrow {
+    background: url("data:image/svg+xml,%3Csvg aria-hidden='true' data-prefix='fas' data-icon='arrow-circle-right' class='svg-inline--fa fa-arrow-circle-right fa-w-16' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Cpath fill='white' d='M256 8a248 248 0 1 1 0 496 248 248 0 0 1 0-496zm-29 144l76 72H120c-13 0-24 11-24 24v16c0 13 11 24 24 24h183l-76 72c-10 10-10 25 0 35l11 11c9 9 24 9 34 0l132-133c10-9 10-25 0-34L272 106c-10-9-25-9-34 0l-11 11c-10 10-10 25 0 35z'/%3E%3C/svg%3E")
+      no-repeat 96% 7px;
+    background-size: 1.7em;
+    color: white;
   }
 
   // Primary button

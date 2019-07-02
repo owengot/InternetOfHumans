@@ -8,7 +8,7 @@ module.exports = {
   /**
    * Name of your design system. Changes both page title and sidebar logo.
    */
-  title: "Vue Design System",
+  title: "Wellbeing in Europe | Edgeryders",
   /**
    * Most of the styles are defined in /docs/docs.styles.scss
    */
@@ -139,7 +139,7 @@ module.exports = {
    * Custom wrapper template for the documentation.
    */
   template: {
-    title: "Example — Vue Design System",
+    title: "Wellbeing in Europe | Edgeryders",
     lang: "en",
     trimWhitespace: true,
     head: {
